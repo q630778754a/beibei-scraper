@@ -1,0 +1,20 @@
+# Render Blueprint 配置
+# 文档：https://render.com/docs/blueprint-spec
+# 部署方式：在 Render 控制台连接 GitHub 仓库，选择此 Blueprint
+
+services:
+  - type: web
+    name: beibei-scraper
+    runtime: docker
+    plan: free  # 免费套餐（750小时/月），如需更强可改 starter
+    region: singapore  # 新加坡节点，离中国近
+    dockerfilePath: ./render-scraper/Dockerfile
+    dockerContext: ./render-scraper
+    healthCheckPath: /health
+    autoDeploy: true
+    envVars:
+      - key: PORT
+        value: 10000
+      - key: PYTHON_VERSION
+        value: 3.11.0
+    # 部署后访问地址：https://beibei-scraper.onrender.com
